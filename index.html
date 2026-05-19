@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ភាគទី ២</title>
+    <style>
+        body { font-family: 'Khmer OS Battambang', sans-serif; background: #fff9db; padding: 20px; text-align: center; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #ffe066; max-width: 500px; margin: 0 auto; color: #333; }
+        .profile-box { background: #fff3bf; padding: 15px; border-radius: 5px; margin: 15px 0; font-weight: bold; border-left: 4px solid #f59f00; text-align: left;}
+        button { background: #f59f00; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 15px; font-weight: bold;}
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h3 style="color:#f59f00;">🎮 ស្វាគមន៍មកកាន់ ហ្គេមភាគទី ២</h3>
+        <p style="color:#666; font-size: 13px;">(ស្ថានភាព៖ កំពុងតេស្តផ្ទាល់ៗជាមួយឈ្មោះពិតនៅលើ CodePen)</p>
+        
+        <div class="profile-box">
+            <p>👤 ឈ្មោះអ្នកលេងពិត៖ <span id="pName" style="color:#e67e22;">កំពុងទាញទិន្នន័យ...</span></p>
+            <p style="font-size:11px; color:#777; font-weight:normal; margin-top:5px;">🆔 UID ពី Firebase៖ <span id="pUid">...</span></p>
+        </div>
+        
+        <hr style="border:none; border-top:1px solid #ddd; margin: 15px 0;">
+        
+        <div style="text-align:left; background:#f8f9fa; padding:15px; border-radius:5px;">
+            <h4>🎯 ប្រកួតភាគទី ២៖ ហ្គេមដកលេខរហ័ស</h4>
+            <p style="margin: 10px 0; font-weight:bold;">សំណួរ៖ ១០០ - ៤៥ = ?</p>
+            <button onclick="alert('ការតេស្តនៅលើ CodePen ដើរបានជោគជ័យ!')">ឆ្លើយកូដភាគទី២</button>
+        </div>
+    </div>
+
+    <script>
+        // 🔥 មុខងារពិសេស៖ លូកដៃទៅអូសយកឈ្មោះពិតដែលទូរស័ព្ទបានកត់ចំណាំពីវេបសាយមេ
+        function loadRealData() {
+            const realName = localStorage.getItem('saved_player_name');
+            const realUid = localStorage.getItem('saved_player_uid');
+
+            if (realName && realUid) {
+                document.getElementById('pName').innerText = realName;
+                document.getElementById('pUid').innerText = realUid;
+            } else {
+                document.getElementById('pName').innerText = "រកមិនឃើញគណនីមេ (សូមចូលចុះឈ្មោះក្នុងវេបសាយមេសិនបង!)";
+            }
+        }
+
+        // ឱ្យវាដំណើរការទាញឈ្មោះភ្លាមពេលបើកទំព័រ CodePen នេះមក
+        loadRealData();
+
+        // ប្រព័ន្ធម៉ាស៊ីនស្តាប់បញ្ជា iFrame ថ្ងៃក្រោយ (ទុកដដែល)
+        window.addEventListener('message', (event) => {
+            const dataFromServer = event.data;
+            if (dataFromServer.uid) {
+                document.getElementById('pName').innerText = dataFromServer.name;
+                document.getElementById('pUid').innerText = dataFromServer.uid;
+            }
+        });
+    </script>
+</body>
+</html>
